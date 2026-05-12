@@ -6,9 +6,10 @@ function moveFiles() {
 
   if (argv.length !== 2) {
     /* eslint-disable no-console */
-    console.error('You need to pass two arguments!');
+    throw new Error('You need to pass two arguments!');
+    /* console.error('You need to pass two arguments!');
 
-    return;
+    return; */
   }
 
   const [srcArg, destArgv] = argv;
@@ -17,11 +18,11 @@ function moveFiles() {
   const dest = path.resolve(destArgv);
 
   if (!fs.existsSync(src) || !fs.statSync(src).isFile()) {
-    // throw new Error('Please check if the file you want to transfer exists!');
+    throw new Error('Please check if the file you want to transfer exists!');
 
-    console.error('Please check if the file you want to transfer exists!');
+    /* console.error('Please check if the file you want to transfer exists!');
 
-    return;
+    return; */
   }
 
   const destIsDir = destArgv.endsWith(path.sep);
@@ -47,16 +48,16 @@ function moveFiles() {
   const parentDir = path.dirname(finalPath);
 
   if (!fs.existsSync(parentDir)) {
-    // throw new Error('Destination directory does not exist!');
-    console.error('Destination directory does not exist!');
+    throw new Error('Destination directory does not exist!');
+    /* console.error('Destination directory does not exist!');
 
-    return;
+    return; */
   }
 
   try {
     fs.renameSync(src, finalPath);
   } catch (err) {
-    console.error('error');
+    console.error(`Failed to move file: ${err.message}`);
   }
 }
 
