@@ -17,6 +17,8 @@ function moveFiles() {
   const dest = path.resolve(destArgv);
 
   if (!fs.existsSync(src) || !fs.statSync(src).isFile()) {
+    // throw new Error('Please check if the file you want to transfer exists!');
+
     console.error('Please check if the file you want to transfer exists!');
 
     return;
@@ -27,9 +29,10 @@ function moveFiles() {
 
   if (destIsDir) {
     if (!fs.existsSync(dest) || !fs.statSync(dest).isDirectory()) {
-      console.error('Destination must be an existing directory!');
+      throw new Error('Destination must be an existing directory!');
+      /* console.error('Destination must be an existing directory!');
 
-      return;
+      return; */
     }
 
     finalPath = path.join(dest, path.basename(src));
@@ -44,6 +47,7 @@ function moveFiles() {
   const parentDir = path.dirname(finalPath);
 
   if (!fs.existsSync(parentDir)) {
+    // throw new Error('Destination directory does not exist!');
     console.error('Destination directory does not exist!');
 
     return;
